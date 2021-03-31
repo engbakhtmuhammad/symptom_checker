@@ -32,9 +32,18 @@ dependencies:
   flutter_svg: ^0.19.1
   google_nav_bar: ^3.2.0
   line_icons: ^0.2.0
-  firebase_core: ^0.7.0
-  firebase_auth: ^0.20.0+1
   firebase_database: ^6.0.0
+  shared_preferences: ^2.0.5
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.1
+  cloud_firestore: ^0.16.0+1
+  progress_dialog: ^1.2.4
+  flutter_facebook_login: 3.0.0
+  http: 0.12.2
+  image_picker: ^0.6.7+22
+  firebase_storage: ^7.0.0
+  cached_network_image: ^2.5.0
+  smooth_page_indicator: ^0.2.0
 
 dev_dependencies:
   flutter_test:

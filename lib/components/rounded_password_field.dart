@@ -11,8 +11,15 @@ class RoundedPasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _password;
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
+        validator: (input) {
+          if (input.length < 6) {
+            return "Provide Minimum 6 character";
+          }
+        },
+        onSaved: (input) => _password = input,
         obscureText: true,
         onChanged: onChanged,
         cursorColor: kPrimaryColor,
