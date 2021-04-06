@@ -1,24 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/Screens/Admin/admin_screen.dart';
 import 'package:fyp/Screens/Bio/bio_screen.dart';
 import 'package:fyp/Screens/DoctorNotification/notification_screen.dart';
 import 'package:fyp/Screens/DoctorsProfile/doctorsProfile_screen.dart';
 import 'package:fyp/Screens/Home/components/background.dart';
-import 'package:fyp/Screens/Symptoms/symptoms_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:fyp/Screens/Welcome/welcome_screen.dart';
+import 'package:fyp/Screens/model/user.dart';
+import 'package:fyp/Screens/services/authenticate.dart';
+import 'package:fyp/Screens/services/helper.dart';
 import 'package:fyp/Screens/update/update_screen.dart';
 import 'package:fyp/components/news_field.dart';
 import 'package:fyp/components/rounded_button.dart';
 import 'package:fyp/constants.dart';
+import 'package:fyp/main.dart';
 
 class Body extends StatefulWidget {
-  const Body({
-    Key key,
-  }) : super(key: key);
+  final User user;
+  Body({Key key, this.user}) : super(key: key);
   @override
-  _BodyState createState() => _BodyState();
+  createState() => _BodyState(user);
 }
 
 class _BodyState extends State<Body> {
+  final User user;
+  _BodyState(this.user);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,12 +34,12 @@ class _BodyState extends State<Body> {
           child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("Shahid Afridi"),
-            accountEmail: Text("shahid.afridi@gmail.com"),
+            accountName: Text(user.firstName + " " + user.lastName),
+            accountEmail: Text(user.email),
             currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
                   backgroundColor: Colors.transparent,
-                  backgroundImage: AssetImage('assets/images/afridi.jpg'),
+                  backgroundImage: NetworkImage(user.profilePictureURL),
                 ),
                 onTap: () => print("Current User")),
 
@@ -85,6 +92,18 @@ class _BodyState extends State<Body> {
                   builder: (BuildContext context) => Update(),
                 ));
               }),
+          ListTile(
+            title: Text("Log out"),
+            leading: Icon(Icons.logout),
+            onTap: () async {
+              user.active = false;
+              user.lastOnlineTimestamp = Timestamp.now();
+              FireStoreUtils.updateCurrentUser(user);
+              await auth.FirebaseAuth.instance.signOut();
+              MyAppState.currentUser = null;
+              pushAndRemoveUntil(context, WelcomeScreen(), false);
+            },
+          ),
           Divider(
             thickness: 1.0,
           ),

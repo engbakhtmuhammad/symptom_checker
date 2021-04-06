@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/Screens/Home/home_screen.dart';
-import 'package:fyp/Screens/Login/login_screen.dart';
-import 'package:fyp/Screens/Signup/signup_screen.dart';
-import 'package:fyp/Screens/Welcome/components/background.dart';
 import 'package:fyp/components/rounded_button.dart';
-import 'package:fyp/constants.dart';
+import 'package:fyp/Screens/Welcome/components/background.dart';
+import 'package:fyp/Screens/Login/loginScreen.dart';
+import 'package:fyp/Screens/signUp/signUpScreen.dart';
+
+import '../../../constants.dart';
 
 class Body extends StatelessWidget {
   const Body({

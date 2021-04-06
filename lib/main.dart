@@ -4,14 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp/Screens/Home/components/body.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/Screens/model/user.dart';
 import 'package:fyp/Screens/services/authenticate.dart';
 import 'package:fyp/Screens/services/helper.dart';
-import 'package:fyp/Screens/auth/authScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Screens/homeNew/homeScreen.dart';
+import 'Screens/Welcome/welcome_screen.dart';
 import 'Screens/onBoardingNew/onBoardingScreen.dart';
 
 void main() => runApp(new MyApp());
@@ -86,7 +86,9 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
         theme: ThemeData(accentColor: kPrimaryColor),
         debugShowCheckedModeBanner: false,
         color: kPrimaryColor,
-        home: OnBoarding());
+        home: OnBoarding()
+        // home: WelcomeScreen(),
+        );
   }
 
   @override
@@ -139,12 +141,12 @@ class OnBoardingState extends State<OnBoarding> {
         User user = await FireStoreUtils().getCurrentUser(firebaseUser.uid);
         if (user != null) {
           MyAppState.currentUser = user;
-          pushReplacement(context, new HomeScreen(user: user));
+          pushReplacement(context, new Body(user: user));
         } else {
-          pushReplacement(context, new AuthScreen());
+          pushReplacement(context, WelcomeScreen());
         }
       } else {
-        pushReplacement(context, new AuthScreen());
+        pushReplacement(context, WelcomeScreen());
       }
     } else {
       pushReplacement(context, new OnBoardingScreen());

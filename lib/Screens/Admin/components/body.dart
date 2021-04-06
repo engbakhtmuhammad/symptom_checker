@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/Screens/Admin/components/background.dart';
-import 'package:fyp/Screens/Login/login_screen.dart';
-import 'package:fyp/Screens/Signup/signup_screen.dart';
+import 'package:fyp/Screens/Login/loginScreen.dart';
 import 'package:fyp/components/doctorList_field.dart';
 import 'package:fyp/components/rounded_search_field.dart';
 import 'package:fyp/constants.dart';
+import 'package:fyp/Screens/signUp/signUpScreen.dart';
 
 class Body extends StatelessWidget {
   const Body({
