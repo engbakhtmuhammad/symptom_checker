@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/Screens/UsersProfile/components/body.dart';
+import 'package:fyp/Screens/model/user.dart';
 
-class UsersProfile extends StatelessWidget {
+class UsersProfile extends StatefulWidget {
+  final User user;
+  UsersProfile({Key key, this.user}) : super(key: key);
+  @override
+  createState() => _UsersProfileState(user);
+}
+
+class _UsersProfileState extends State<UsersProfile> {
+  final User user;
+  _UsersProfileState(this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(),
+      body: Body(user: user),
     );
   }
 }

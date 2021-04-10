@@ -18,7 +18,7 @@ class Background extends StatelessWidget {
         alignment: Alignment.center,
         children: <Widget>[
           Positioned(
-            top: -300,
+            top: -320,
             left: 0,
             child: Image.asset(
               "assets/images/back6.png",

@@ -1,139 +1,135 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:fyp/Screens/UsersProfile/components/background.dart';
-import 'package:fyp/Screens/update/update_screen.dart';
+
+import 'package:fyp/Screens/update/components/update_screen.dart';
+import 'package:fyp/Screens/Welcome/welcome_screen.dart';
+import 'package:fyp/Screens/model/user.dart';
+import 'package:fyp/Screens/services/authenticate.dart';
+import 'package:fyp/Screens/services/helper.dart';
 import 'package:fyp/components/profile_field.dart';
-import 'package:fyp/Screens/Login/loginScreen.dart';
+import 'package:fyp/constants.dart';
+import 'package:fyp/main.dart';
 
-class Body extends StatelessWidget {
-  const Body({
-    Key key,
-  }) : super(key: key);
+class Body extends StatefulWidget {
+  final User user;
+  Body({Key key, this.user}) : super(key: key);
+  @override
+  createState() => _BodyState(user);
+}
 
+class _BodyState extends State<Body> {
+  final User user;
+  _BodyState(this.user);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Background(
-      child: Stack(
-        children: [
-          Positioned(
-              top: 0,
-              child: AppBar(
-                centerTitle: true,
-                //Name of the disease from database
-                title: Text(
-                  'Profile',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                backgroundColor: Colors.transparent,
-              )),
-          Positioned(
-            top: size.height * .25,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: size.width,
-                  height: size.height * .65,
-                  child: SingleChildScrollView(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(35),
-                              topRight: Radius.circular(35))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(
-                                right: 30, left: 30, top: size.height * .08),
-                            child: ListTile(
-                              title: Center(
-                                  child: Text(
-                                'User Name',
-                                style: TextStyle(fontWeight: FontWeight.w600),
-                              )),
-                              subtitle: Text(
-                                  'Bio of user, bio user bio user bio user bio user'),
-                            ),
-                          ),
-                          SizedBox(height: size.height * .02),
-                          ProfileField(
-                            text: 'Address of the user',
-                            icon: Icons.pin_drop_outlined,
-                            color: Colors.red,
-                          ),
-                          ProfileField(
-                            text: 'Contact of the user',
-                            icon: Icons.phone_outlined,
-                            color: Colors.green,
-                          ),
-                          ProfileField(
-                            text: 'Languages user speaks',
-                            icon: Icons.language_outlined,
-                            color: Colors.blue,
-                          ),
-                          ProfileField(
-                            text: 'Edit Information',
-                            icon: Icons.edit,
-                            color: Colors.orange,
-                            press: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Update()));
-                            },
-                          ),
-                          ProfileField(
-                            text: 'log out from your account',
-                            icon: Icons.logout,
-                            color: Colors.red,
-                            press: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
-                            },
-                          ),
-                        ],
-                      ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Profile"),
+        elevation: 0.0,
+        backgroundColor: kBackgroundColor,
+      ),
+      body: SingleChildScrollView(
+        child: Stack(children: [
+          Column(
+            children: [
+              Container(
+                height: size.height * .18,
+                decoration: BoxDecoration(
+                    color: kBackgroundColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(35),
+                        bottomRight: Radius.circular(35))),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: 30, left: 30, top: size.height * .065),
+                    child: ListTile(
+                      title: Center(
+                          child: Text(
+                        user.fullName(),
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      )),
+                      subtitle: Text(user.bio =
+                          "User bio User bio User bio User bio User bio User bio"),
                     ),
                   ),
-                ),
-                Container(
-                    width: size.width,
-                    height: size.height * .1,
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return Update();
-                          }));
-                        },
-                        child: Text(
-                          'Edit Information',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 20),
-                        ),
-                      ),
-                    )),
-              ],
-            ),
+                  SizedBox(height: size.height * .02),
+                  ProfileField(
+                    text: user.email,
+                    icon: Icons.pin_drop_outlined,
+                    color: Colors.red,
+                  ),
+                  ProfileField(
+                    text: user.phoneNumber,
+                    icon: Icons.phone_outlined,
+                    color: Colors.green,
+                  ),
+                  ProfileField(
+                    text: user.language = 'Languages user speaks',
+                    icon: Icons.language_outlined,
+                    color: Colors.blue,
+                  ),
+                  ProfileField(
+                    text: 'Edit Information',
+                    icon: Icons.edit,
+                    color: Colors.orange,
+                    press: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Update(
+                                    user: user,
+                                  )));
+                    },
+                  ),
+                  ProfileField(
+                    text: 'log out from your account',
+                    icon: Icons.logout,
+                    color: Colors.red,
+                    press: () async {
+                      user.active = false;
+                      user.lastOnlineTimestamp = Timestamp.now();
+                      FireStoreUtils.updateCurrentUser(user);
+                      await auth.FirebaseAuth.instance.signOut();
+                      MyAppState.currentUser = null;
+                      pushAndRemoveUntil(context, WelcomeScreen(), false);
+                    },
+                  ),
+                  // ProfileField(
+                  //   text: '',
+                  //   icon: Icons.logout,
+                  //   color: kPrimaryLightColor,
+                  // ),
+                ],
+              ),
+            ],
           ),
           Positioned(
-            top: size.height * .18,
+            top: size.height * .09,
             left: size.width / 2 - size.height * 0.08,
             child: CircleAvatar(
               radius: size.height * .08,
               backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage('assets/images/doctorProfiles.png'),
+              backgroundImage: NetworkImage(user.profilePictureURL),
             ),
           ),
-        ],
+          Positioned(
+              top: 10,
+              right: 10,
+              child: Image(
+                image: AssetImage("assets/images/hospital-bed.png"),
+                width: size.width * .25,
+              )),
+        ]),
       ),
     );
   }

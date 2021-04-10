@@ -6,7 +6,8 @@ class User {
   String email;
   String firstName;
   String lastName;
-
+  String bio;
+  String language;
   String phoneNumber;
 
   bool active;
@@ -24,6 +25,8 @@ class User {
       {this.email = '',
       this.firstName = '',
       this.phoneNumber = '',
+      this.bio = '',
+      this.language = '',
       this.lastName = '',
       this.active = false,
       this.selected = false,
@@ -42,6 +45,8 @@ class User {
         email: parsedJson['email'] ?? '',
         firstName: parsedJson['firstName'] ?? '',
         lastName: parsedJson['lastName'] ?? '',
+        bio: parsedJson['bio'] ?? '',
+        language: parsedJson['language'] ?? '',
         active: parsedJson['active'] ?? false,
         lastOnlineTimestamp: parsedJson['lastOnlineTimestamp'],
         phoneNumber: parsedJson['phoneNumber'] ?? '',
@@ -54,6 +59,8 @@ class User {
       'email': this.email,
       'firstName': this.firstName,
       'lastName': this.lastName,
+      'bio': this.bio,
+      'language': this.language,
       'phoneNumber': this.phoneNumber,
       'id': this.userID,
       'active': this.active,

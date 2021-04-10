@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp/Screens/Doctors/components/background.dart';
 import 'package:fyp/components/doctorList_field.dart';
 import 'package:fyp/components/rounded_search_field.dart';
+import 'package:fyp/constants.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -12,24 +13,17 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Background(
+    return SingleChildScrollView(
       child: Column(
         children: [
-          //SizedBox(height: size.height * 0),
-          Positioned(
-              top: 0,
-              child: AppBar(
-                centerTitle: true,
-                title: Text(
-                  'Doctors List',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                backgroundColor: Colors.transparent,
-              )),
           Container(
             width: size.width,
-            height: size.height * .11,
-            // decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
+            height: size.height * .125,
+            decoration: BoxDecoration(
+                color: kBackgroundColor,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(35),
+                    bottomRight: Radius.circular(35))),
             child: Column(
               children: [
                 RoundedSearchField(
@@ -39,64 +33,48 @@ class Body extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            width: size.width,
-            height: size.height * .77,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(35),
-                      topRight: Radius.circular(35))),
-              child: Positioned(
-                bottom: 0,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: size.height * .01,
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                      DoctorListField(
-                        imageUrl: 'assets/images/doctor.jpg',
-                        text: 'Doctor Name, speciality',
-                      ),
-                    ],
-                  ),
-                ),
+          Column(
+            children: [
+              SizedBox(
+                height: size.height * .01,
               ),
-            ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+              DoctorListField(
+                imageUrl: 'assets/images/doctor.jpg',
+                text: 'Doctor Name, speciality',
+              ),
+            ],
           ),
         ],
       ),
