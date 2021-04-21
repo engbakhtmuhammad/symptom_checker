@@ -89,15 +89,15 @@ class _BodyState extends State<Body> {
                   builder: (BuildContext context) => DoctorsProfile(),
                 ));
               }),
-          // ListTile(
-          //     title: Text("Admin"),
-          //     leading: Icon(Icons.admin_panel_settings_outlined),
-          //     onTap: () {
-          //       Navigator.of(context).pop();
-          //       Navigator.of(context).push(new MaterialPageRoute(
-          //         builder: (BuildContext context) => Admin(),
-          //       ));
-          //     }),
+          ListTile(
+              title: Text("Admin"),
+              leading: Icon(Icons.admin_panel_settings_outlined),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => Admin(),
+                ));
+              }),
           ListTile(
               title: Text("Reply"),
               leading: Icon(Icons.send),
