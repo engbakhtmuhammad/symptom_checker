@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/Screens/Bio/bio_screen.dart';
-
-import 'package:fyp/components/news_field.dart';
-import 'package:fyp/components/rounded_button.dart';
+import 'package:fyp/Screens/services/news.dart';
+import 'package:fyp/Screens/Home/article_view.dart';
 import 'package:fyp/constants.dart';
 
 //f7d54802ae9d4e2eb6b90d6e456b63ee
@@ -14,6 +13,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _loading;
+  var newslist;
+
+  void getNews() async {
+    News news = News();
+    await news.getNews();
+    newslist = news.news;
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    _loading = true;
+    // TODO: implement initState
+    super.initState();
+    getNews();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -83,48 +102,95 @@ class _HomeScreenState extends State<HomeScreen> {
               //     }),
             ),
           ),
-          NewsField(
-            imageUrl: 'assets/images/afridi.jpg',
-            text:
-                'Pakistan cricketer Shahid Afridi isn’t stranger to making comebacks from retirement but has now made it clear that he won’t be returning to international cricket again.In his final international appearance, Afridi led World XI in a charity T20 game against the West Indies at Lord’s on Thursday. During the match, former England captain and commentator Nasser Hussain jokingly asked the big-hitting Pakistan all-rounder if he had plans for another comeback.',
-          ),
-          NewsField(
-            imageUrl: 'assets/images/afridi.jpg',
-            text:
-                'Pakistan cricketer Shahid Afridi isn’t stranger to making comebacks from retirement but has now made it clear that he won’t be returning to international cricket again.In his final international appearance, Afridi led World XI in a charity T20 game against the West Indies at Lord’s on Thursday. During the match, former England captain and commentator Nasser Hussain jokingly asked the big-hitting Pakistan all-rounder if he had plans for another comeback.',
-          ),
-          NewsField(
-            imageUrl: 'assets/images/afridi.jpg',
-            text:
-                'Pakistan cricketer Shahid Afridi isn’t stranger to making comebacks from retirement but has now made it clear that he won’t be returning to international cricket again.In his final international appearance, Afridi led World XI in a charity T20 game against the West Indies at Lord’s on Thursday. During the match, former England captain and commentator Nasser Hussain jokingly asked the big-hitting Pakistan all-rounder if he had plans for another comeback.',
-          ),
-          NewsField(
-            imageUrl: 'assets/images/afridi.jpg',
-            text:
-                'Pakistan cricketer Shahid Afridi isn’t stranger to making comebacks from retirement but has now made it clear that he won’t be returning to international cricket again.In his final international appearance, Afridi led World XI in a charity T20 game against the West Indies at Lord’s on Thursday. During the match, former England captain and commentator Nasser Hussain jokingly asked the big-hitting Pakistan all-rounder if he had plans for another comeback.',
-          ),
-          NewsField(
-            imageUrl: 'assets/images/afridi.jpg',
-            text:
-                'Pakistan cricketer Shahid Afridi isn’t stranger to making comebacks from retirement but has now made it clear that he won’t be returning to international cricket again.In his final international appearance, Afridi led World XI in a charity T20 game against the West Indies at Lord’s on Thursday. During the match, former England captain and commentator Nasser Hussain jokingly asked the big-hitting Pakistan all-rounder if he had plans for another comeback.',
-          ),
-          NewsField(
-            imageUrl: 'assets/images/afridi.jpg',
-            text:
-                'Pakistan cricketer Shahid Afridi isn’t stranger to making comebacks from retirement but has now made it clear that he won’t be returning to international cricket again.In his final international appearance, Afridi led World XI in a charity T20 game against the West Indies at Lord’s on Thursday. During the match, former England captain and commentator Nasser Hussain jokingly asked the big-hitting Pakistan all-rounder if he had plans for another comeback.',
-          ),
-          NewsField(
-            imageUrl: 'assets/images/afridi.jpg',
-            text:
-                'Pakistan cricketer Shahid Afridi isn’t stranger to making comebacks from retirement but has now made it clear that he won’t be returning to international cricket again.In his final international appearance, Afridi led World XI in a charity T20 game against the West Indies at Lord’s on Thursday. During the match, former England captain and commentator Nasser Hussain jokingly asked the big-hitting Pakistan all-rounder if he had plans for another comeback.',
-          ),
-          NewsField(
-            imageUrl: 'assets/images/afridi.jpg',
-            text:
-                'Pakistan cricketer Shahid Afridi isn’t stranger to making comebacks from retirement but has now made it clear that he won’t be returning to international cricket again.In his final international appearance, Afridi led World XI in a charity T20 game against the West Indies at Lord’s on Thursday. During the match, former England captain and commentator Nasser Hussain jokingly asked the big-hitting Pakistan all-rounder if he had plans for another comeback.',
+          Container(
+            margin: EdgeInsets.only(top: 16),
+            child: ListView.builder(
+                itemCount: newslist.length,
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return NewsTile(
+                    imgUrl: newslist[index].urlToImage ?? "",
+                    title: newslist[index].title ?? "",
+                    desc: newslist[index].description ?? "",
+                    content: newslist[index].content ?? "",
+                    posturl: newslist[index].articleUrl ?? "",
+                  );
+                }),
           ),
         ],
       ),
+    );
+  }
+}
+
+class NewsTile extends StatelessWidget {
+  final String imgUrl, title, desc, content, posturl;
+
+  NewsTile(
+      {this.imgUrl,
+      this.desc,
+      this.title,
+      this.content,
+      @required this.posturl});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ArticleView(
+                      postUrl: posturl,
+                    )));
+      },
+      child: Container(
+          margin: EdgeInsets.only(bottom: 24),
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              alignment: Alignment.bottomCenter,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(6),
+                      bottomLeft: Radius.circular(6))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
+                        imgUrl,
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      )),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    title,
+                    maxLines: 2,
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    desc,
+                    maxLines: 2,
+                    style: TextStyle(color: Colors.black54, fontSize: 14),
+                  )
+                ],
+              ),
+            ),
+          )),
     );
   }
 }
