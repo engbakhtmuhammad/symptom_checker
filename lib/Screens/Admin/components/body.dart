@@ -1,16 +1,27 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/Screens/Admin/components/background.dart';
 import 'package:fyp/Screens/Login/loginScreen.dart';
+import 'package:fyp/Screens/model/doctor.dart';
+import 'package:fyp/Screens/signUp/doctorSignUp.dart';
 import 'package:fyp/components/doctorList_field.dart';
 import 'package:fyp/components/rounded_search_field.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/Screens/signUp/signUpScreen.dart';
 
-class Body extends StatelessWidget {
-  const Body({
-    Key key,
-  }) : super(key: key);
+class Body extends StatefulWidget {
+  final Doctor doctor;
+  Body({Key key, this.doctor}) : super(key: key);
+  @override
+  createState() => _BodyState(doctor);
+}
+
+class _BodyState extends State<Body> {
+  final Doctor doctor;
+  _BodyState(this.doctor);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +35,7 @@ class Body extends StatelessWidget {
               Positioned(
                   top: 0,
                   child: AppBar(
+                    elevation: 0.0,
                     actions: [
                       IconButton(
                           icon: Icon(Icons.logout),
@@ -60,39 +72,58 @@ class Body extends StatelessWidget {
                   child: Stack(
                     children: <Widget>[
                       //this column will be use to show the list of doctors
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: size.height * .01,
-                            ),
-                            DoctorListField(
-                              imageUrl: 'assets/images/doctor.jpg',
-                              text: 'Doctor Name, speciality',
-                            ),
-                            DoctorListField(
-                              imageUrl: 'assets/images/doctor.jpg',
-                              text: 'Doctor Name, speciality',
-                            ),
-                            DoctorListField(
-                              imageUrl: 'assets/images/doctor.jpg',
-                              text: 'Doctor Name, speciality',
-                            ),
-                            DoctorListField(
-                              imageUrl: 'assets/images/doctor.jpg',
-                              text: 'Doctor Name, speciality',
-                            ),
-                            DoctorListField(
-                              imageUrl: 'assets/images/doctor.jpg',
-                              text: 'Doctor Name, speciality',
-                            ),
-                            DoctorListField(
-                              imageUrl: 'assets/images/doctor.jpg',
-                              text: 'Doctor Name, speciality',
-                            ),
-                          ],
-                        ),
-                      ),
+                      // StreamBuilder(
+                      //   stream: FirebaseFirestore.instance
+                      //       .collection("users")
+                      //       .snapshots(),
+                      //   builder: (BuildContext context,
+                      //       AsyncSnapshot<QuerySnapshot> snapshot) {
+                      //     if (!snapshot.hasData) {
+                      //       return Center(
+                      //         child: CircularProgressIndicator(
+                      //           valueColor:
+                      //               AlwaysStoppedAnimation<Color>(Colors.red),
+                      //         ),
+                      //       );
+                      //     } else {
+                      //       return ListView.builder(
+                      //           itemCount: snapshot.data.docs.length,
+                      //           itemBuilder: (context, index) {
+                      //             DocumentSnapshot doctorList =
+                      //                 snapshot.data.docs[index];
+                      //             return ListTile(
+                      //               leading: Image.network(
+                      //                   doctorList["profilePictureURL"]),
+                      //               title: Text(doctorList["firstName"]),
+                      //               subtitle: Text(doctorList["bio"]),
+                      //             );
+                      //           });
+                      //     }
+                      //   },
+                      // ),
+                      //
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            return ListView(
+                              children: snapshot.data.docs.map((document) {
+                                return DoctorListField(
+                                  imageUrl: document["profilePictureURL"],
+                                  name: document["firstName"],
+                                  bio: document["bio"],
+                                );
+                              }).toList(),
+                            );
+                          }),
                       Positioned(
                           bottom: 10,
                           right: 20,
@@ -106,7 +137,7 @@ class Body extends StatelessWidget {
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return SignUpScreen();
+                                return DoctorSignUp();
                               }));
                             },
                           ))

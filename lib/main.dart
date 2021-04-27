@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp/Screens/Admin/admin_screen.dart';
 import 'package:fyp/Screens/Home/components/body.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/Screens/model/user.dart';
@@ -12,6 +13,7 @@ import 'package:fyp/Screens/services/helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Screens/Welcome/welcome_screen.dart';
+import 'Screens/model/doctor.dart';
 import 'Screens/onBoardingNew/onBoardingScreen.dart';
 
 void main() => runApp(new MyApp());
@@ -23,6 +25,7 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   static User currentUser;
+  static Doctor currentDoctor;
   StreamSubscription tokenStream;
 
   // Set default `_initialized` and `_error` state to false
@@ -86,7 +89,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
         theme: ThemeData(accentColor: kPrimaryColor),
         debugShowCheckedModeBanner: false,
         color: kPrimaryColor,
-        home: OnBoarding()
+        home: Admin()
         // home: WelcomeScreen(),
         );
   }

@@ -3,13 +3,11 @@ import 'package:fyp/constants.dart';
 
 class DoctorListField extends StatelessWidget {
   final String imageUrl;
-  final String text;
+  final String name;
+  final String bio;
 
-  const DoctorListField({
-    Key key,
-    this.imageUrl,
-    this.text,
-  }) : super(key: key);
+  const DoctorListField({Key key, this.imageUrl, this.name, this.bio})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -37,7 +35,7 @@ class DoctorListField extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Text(
-                  text,
+                  name,
                   style: TextStyle(fontSize: 16),
                 ),
               ),

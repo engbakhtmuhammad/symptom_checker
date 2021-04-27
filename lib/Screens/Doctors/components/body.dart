@@ -40,39 +40,39 @@ class Body extends StatelessWidget {
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
               DoctorListField(
                 imageUrl: 'assets/images/doctor.jpg',
-                text: 'Doctor Name, speciality',
+                name: 'Doctor Name, speciality',
               ),
             ],
           ),
