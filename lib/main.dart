@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/Screens/Admin/admin_screen.dart';
-import 'package:fyp/Screens/Home/components/body.dart';
+import 'package:fyp/Screens/Home/body.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/Screens/model/user.dart';
 import 'package:fyp/Screens/services/authenticate.dart';
@@ -89,7 +89,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
         theme: ThemeData(accentColor: kPrimaryColor),
         debugShowCheckedModeBanner: false,
         color: kPrimaryColor,
-        home: Admin()
+        home: OnBoarding()
         // home: WelcomeScreen(),
         );
   }

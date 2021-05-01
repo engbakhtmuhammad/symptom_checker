@@ -14,7 +14,7 @@ import 'package:fyp/main.dart';
 import 'package:fyp/Screens/model/user.dart';
 import 'package:fyp/Screens/services/authenticate.dart';
 import 'package:fyp/Screens/services/helper.dart';
-import 'package:fyp/Screens/Home/components/body.dart';
+import 'package:fyp/Screens/Home/body.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fyp/Screens/Home/components/body.dart';
+import 'package:fyp/Screens/Home/body.dart';
 import 'package:fyp/components/rounded_button.dart';
 import 'package:fyp/components/text_field_container.dart';
 import 'package:fyp/constants.dart';

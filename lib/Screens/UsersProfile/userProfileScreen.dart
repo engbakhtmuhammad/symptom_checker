@@ -3,37 +3,32 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
-import 'package:fyp/Screens/UsersProfile/components/background.dart';
 
 import 'package:fyp/Screens/update/components/update_screen.dart';
 import 'package:fyp/Screens/Welcome/welcome_screen.dart';
 import 'package:fyp/Screens/model/user.dart';
 import 'package:fyp/Screens/services/authenticate.dart';
 import 'package:fyp/Screens/services/helper.dart';
+import 'package:fyp/components/header.dart';
 import 'package:fyp/components/profile_field.dart';
 import 'package:fyp/constants.dart';
 import 'package:fyp/main.dart';
 
-class Body extends StatefulWidget {
+class UsersProfile extends StatefulWidget {
   final User user;
-  Body({Key key, this.user}) : super(key: key);
+  UsersProfile({Key key, this.user}) : super(key: key);
   @override
-  createState() => _BodyState(user);
+  createState() => _UsersProfileState(user);
 }
 
-class _BodyState extends State<Body> {
+class _UsersProfileState extends State<UsersProfile> {
   final User user;
-  _BodyState(this.user);
+  _UsersProfileState(this.user);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Profile"),
-        elevation: 0.0,
-        backgroundColor: kBackgroundColor,
-      ),
+      appBar: header("Profile"),
       body: SingleChildScrollView(
         child: Stack(children: [
           Column(
